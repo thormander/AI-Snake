@@ -8,6 +8,14 @@ pygame.init() # initilize modules
 
 # CONSTANTS
 SIZE = 20
+SPEED = 30
+
+# COLOR CONSTANTS
+BLACK = (0,0,0)
+FOOD = (255,0,0)
+SNAKE_COLOR1 = (0,100,255)
+SNAKE_COLOR2 = (0,20,255)
+
 
 class Direction(Enum):
     RIGHT = 1
@@ -16,7 +24,7 @@ class Direction(Enum):
     DOWN = 4
 
 # Psuedo Class
-Point = namedtuple('Point','x','y')
+Point = namedtuple('Point','x,y')
 
 class SnakeMain:
     # pass window size of game
@@ -26,7 +34,7 @@ class SnakeMain:
 
         # window of game
         self.display = pygame.display.set_mode((self.w, self.h))
-        pygame.display.set_caption('AI - Snake', icontitle=None)
+        pygame.display.set_caption('AI - Snake')
         self.clock = pygame.time.Clock()
 
         # initial game state
@@ -34,7 +42,7 @@ class SnakeMain:
         self.head = Point(self.w/2,self.h/2)
         self.snake = [self.head, Point(self.head.x-SIZE,self.head.y),Point(self.head.x-(2*SIZE),self.head.y)]
 
-        self.points = 0
+        self.score = 0
         self.food = None
         self.generateFood()
     
@@ -52,18 +60,44 @@ class SnakeMain:
 
         # move snake
 
-        
+        # game over?
 
+        # generate new food
+
+        # update
+        self.updateUI()
+        self.clock.tick(SPEED)
+
+        # return score after game over
+        gameOver = False
+        return gameOver, self.score
+
+    # drawing the items for the game
+    def updateUI(self):
+        self.display.fill(BLACK)
+
+        # draw snake
+        for point in self.snake:
+            pygame.draw(self.display,SNAKE_COLOR1,pygame.Rect(point.x,point.y,SIZE,SIZE))
+            pygame.draw(self.display,SNAKE_COLOR2,pygame.Rect(point.x+4,point+4.y,12,12))
+        
+        # draw food
+        pygame.draw(self.display, FOOD, pygame.Rect(self.food.x,self.food.y,SIZE,SIZE))
     
+
     
 if __name__ == '__main__':
     game = SnakeMain()
 
     # Run game (ie. infinite loop until game over)
     while True:
-        game.play()
+        gameOver, score = game.play()
         
         # game over condition
+        if gameOver == True:
+            break
+            
+    print('Your score: ', score)
     
     pygame.quit()
 
