@@ -12,8 +12,8 @@ SPEED = 10
 
 # COLOR CONSTANTS
 BLACK = (0,0,0)
+BG = (72,111, 56)
 WHITE = (255,255,255)
-FOOD = (255,0,0)
 SNAKE_COLOR1 = (0,0,255)
 SNAKE_COLOR2 = (0,100,255)
 
@@ -40,6 +40,13 @@ class SnakeMain:
         self.display = pygame.display.set_mode((self.w, self.h))
         pygame.display.set_caption('AI - Snake')
         self.clock = pygame.time.Clock()
+
+        
+        # Load assets -----------
+        self.appleIMG = pygame.image.load('assets/apple.png').convert_alpha()
+        self.appleIMG = pygame.transform.scale(self.appleIMG, (30,30))
+        # -----------------------
+
 
         # initial game state
         self.direction = Direction.RIGHT
@@ -130,7 +137,7 @@ class SnakeMain:
 
     # drawing the items for the game
     def updateUI(self):
-        self.display.fill(BLACK)
+        self.display.fill(BG)
 
         # draw snake
         for point in self.snake:
@@ -138,7 +145,8 @@ class SnakeMain:
             pygame.draw.rect(self.display,SNAKE_COLOR2,pygame.Rect(point.x+4,point.y+4,12,12))
         
         # draw food
-        pygame.draw.rect(self.display, FOOD, pygame.Rect(self.food.x,self.food.y,SIZE,SIZE))
+        #pygame.draw.rect(self.display, FOOD, pygame.Rect(self.food.x,self.food.y,SIZE,SIZE))
+        self.display.blit(self.appleIMG, (self.food.x, self.food.y))
 
         text = font.render("Score: " + str(self.score), True, WHITE)
         self.display.blit(text, [0,0])
