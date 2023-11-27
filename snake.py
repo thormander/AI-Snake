@@ -14,8 +14,8 @@ SPEED = 10
 BLACK = (0,0,0)
 WHITE = (255,255,255)
 FOOD = (255,0,0)
-SNAKE_COLOR1 = (0,100,255)
-SNAKE_COLOR2 = (0,20,255)
+SNAKE_COLOR1 = (0,0,255)
+SNAKE_COLOR2 = (0,100,255)
 
 # FONTS
 font = pygame.font.SysFont('arial', 25, bold=False, italic=False)
@@ -32,7 +32,7 @@ Point = namedtuple('Point','x,y')
 
 class SnakeMain:
     # pass window size of game
-    def __init__(self,h=600,w=600):
+    def __init__(self,w=600,h=600):
         self.h = h
         self.w = w
 
@@ -42,7 +42,7 @@ class SnakeMain:
         self.clock = pygame.time.Clock()
 
         # initial game state
-        self.direction = Direction.LEFT
+        self.direction = Direction.RIGHT
         self.head = Point(self.w/2,self.h/2)
         self.snake = [self.head, Point(self.head.x-SIZE,self.head.y),Point(self.head.x-(2*SIZE),self.head.y)]
 
@@ -144,7 +144,14 @@ class SnakeMain:
         self.display.blit(text, [0,0])
         pygame.display.flip() # updates the screen user sees
 
-    
+    def gameOverText(self):
+        endText = font.render("Game Over! Your final score is: " + str(self.score), True, WHITE)
+        endPosition = endText.get_rect(center=(self.w/2, self.h/2))
+        self.display.blit(endText, endPosition)
+        
+        pygame.display.flip()
+        pygame.time.wait(5000)
+
 if __name__ == '__main__':
     game = SnakeMain()
 
@@ -154,7 +161,7 @@ if __name__ == '__main__':
         
         # game over condition
         if gameOver == True:
-            pygame.time.wait(5000)  # Wait for 5 seconds
+            game.gameOverText()
             break
             
     print('Your score: ', score)
