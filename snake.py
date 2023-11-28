@@ -20,7 +20,6 @@ SNAKE_COLOR2 = (0,100,255)
 # FONTS
 font = pygame.font.SysFont('arial', 25, bold=False, italic=False)
 
-
 class Direction(Enum):
     RIGHT = 1
     LEFT = 2
@@ -111,8 +110,8 @@ class SnakeMain:
 
     def collision(self):
         # hit boundary
-        if self.head.x > self.w - SIZE or self.head.x < 0 or self.head.y > self.h - SIZE or self.head.y < 0:
-            return True
+        #if self.head.x > self.w - SIZE or self.head.x < 0 or self.head.y > self.h - SIZE or self.head.y < 0:
+        #    return True
 
         # hit self
         if self.head in self.snake[1:]: # do not include head
@@ -125,18 +124,19 @@ class SnakeMain:
         y = self.head.y
 
         if direction == Direction.RIGHT:
-            x += SIZE
+            x = (x + SIZE) % self.w
         elif direction == Direction.LEFT:
-            x -= SIZE
+            x = (x - SIZE) % self.w
         elif direction == Direction.UP:
-            y -= SIZE
+            y = (y - SIZE) % self.h
         elif direction == Direction.DOWN:
-            y += SIZE
+            y = (y + SIZE) % self.h
         
         self.head = Point(x,y)
 
     # drawing the items for the game
     def updateUI(self):
+        # draw background
         self.display.fill(BG)
 
         # draw snake
@@ -159,6 +159,7 @@ class SnakeMain:
         
         pygame.display.flip()
         pygame.time.wait(5000)
+
 
 if __name__ == '__main__':
     game = SnakeMain()
