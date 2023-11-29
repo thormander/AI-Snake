@@ -196,14 +196,7 @@ class SnakeMain:
                 body_sprite = self.getBody(index)
                 self.display.blit(body_sprite, segment_rect)            
 
-        '''
-        # draw snake -- OLD way of drawing --
-        for point in self.snake:
-            pygame.draw.rect(self.display,SNAKE_COLOR1,pygame.Rect(point.x,point.y,SIZE,SIZE))
-            pygame.draw.rect(self.display,SNAKE_COLOR2,pygame.Rect(point.x+4,point.y+4,12,12))
-        '''
         # draw food
-        #pygame.draw.rect(self.display, FOOD, pygame.Rect(self.food.x,self.food.y,SIZE,SIZE))
         self.display.blit(self.appleIMG, (self.food.x, self.food.y))
 
         text = font.render("Score: " + str(self.score), True, WHITE)
