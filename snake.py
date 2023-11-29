@@ -255,33 +255,31 @@ class SnakeMain:
         # handle body corners
         # case of corners going vetical
         if previous_segment.x == current_segment.x:
-            # body going down
             if next_segment.x > current_segment.x:
                 if next_segment.y > current_segment.y:
-                    return self.body_bottomright # curve right
+                    return self.body_bottomright # 
                 else:
-                    return self.body_bottomleft # curve left
-            # body going up
+                    return self.body_topright # left -> up
             else:
                 if next_segment.y > current_segment.y:
-                    return self.body_topright # curve right
+                    return self.body_bottomleft # 
                 else:
-                    return self.body_topleft # curve left                
+                    return self.body_topleft # right -> up              
 
         # case of corners going horizontal
         else:
             # body going right
-            if next_segment.x > current_segment.x:
-                if next_segment.y > current_segment.y:
-                    return self.body_bottomright # curve down
+            if next_segment.y > current_segment.y:
+                if previous_segment.x < current_segment.x:
+                    return self.body_bottomleft # up -> left
                 else:
-                    return self.body_topright # curve up
+                    return self.body_bottomright # up -> right
             # body going left
             else:
-                if next_segment.y > current_segment.y:
-                    return self.body_bottomleft # curve down
+                if previous_segment.x < current_segment.x:
+                    return self.body_topleft # down -> left
                 else:
-                    return self.body_topleft # curve up
+                    return self.body_topright # down -> right
 
 
 
