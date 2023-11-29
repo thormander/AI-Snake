@@ -42,8 +42,33 @@ class SnakeMain:
 
         
         # Load assets -----------
+
+        # food
         self.appleIMG = pygame.image.load('assets/apple.png').convert_alpha()
         self.appleIMG = pygame.transform.scale(self.appleIMG, (30,30))
+
+        # snake head
+        self.head_up = pygame.image.load('assets/head_up.png').convert_alpha()
+        self.head_down = pygame.image.load('assets/head_down.png').convert_alpha()
+        self.head_left = pygame.image.load('assets/head_left.png').convert_alpha()
+        self.head_right = pygame.image.load('assets/head_right.png').convert_alpha()
+
+        # snake body
+        self.body_horizontal = pygame.image.load('assets/body_horizontal.png').convert_alpha()
+        self.body_vertical = pygame.image.load('assets/body_vertical.png').convert_alpha()    
+        self.body_bottomleft = pygame.image.load('assets/body_bottomleft.png').convert_alpha()
+        self.body_bottomright = pygame.image.load('assets/body_bottomright.png').convert_alpha()
+        self.body_topleft = pygame.image.load('assets/body_topleft.png').convert_alpha()
+        self.body_topright = pygame.image.load('assets/body_topright.png').convert_alpha()
+
+        # snake tail
+        self.tail_up = pygame.image.load('assets/tail_up.png').convert_alpha()
+        self.tail_down  = pygame.image.load('assets/tail_down.png').convert_alpha()
+        self.tail_left = pygame.image.load('assets/tail_left.png').convert_alpha()
+        self.tail_right = pygame.image.load('assets/tail_right.png').convert_alpha()
+
+
+
         # -----------------------
 
 
