@@ -67,8 +67,6 @@ class SnakeMain:
         self.tail_left = pygame.image.load('assets/tail_left.png').convert_alpha()
         self.tail_right = pygame.image.load('assets/tail_right.png').convert_alpha()
 
-
-
         # -----------------------
 
 
@@ -164,11 +162,29 @@ class SnakeMain:
         # draw background
         self.display.fill(BG)
 
-        # draw snake
+        # load snake images
+        for index, point in enumerate(self.snake):
+            segment_rect = pygame.Rect(point.x, point.y, SIZE, SIZE)
+            
+            # head
+            if index == 0:
+                head_sprite = self.getHead()
+                self.display.blit(head_sprite, segment_rect)
+            # Tail
+            elif index == len(self.snake) - 1:  
+                tail_sprite = self.getTail(index)
+                self.display.blit(tail_sprite, segment_rect)
+            # Body
+            else:  
+                body_sprite = self.getBody(index)
+                self.display.blit(body_sprite, segment_rect)            
+
+        '''
+        # draw snake -- OLD way of drawing --
         for point in self.snake:
             pygame.draw.rect(self.display,SNAKE_COLOR1,pygame.Rect(point.x,point.y,SIZE,SIZE))
             pygame.draw.rect(self.display,SNAKE_COLOR2,pygame.Rect(point.x+4,point.y+4,12,12))
-        
+        '''
         # draw food
         #pygame.draw.rect(self.display, FOOD, pygame.Rect(self.food.x,self.food.y,SIZE,SIZE))
         self.display.blit(self.appleIMG, (self.food.x, self.food.y))
