@@ -253,34 +253,32 @@ class SnakeMain:
             return self.body_vertical
         
         # handle body corners
-        # case of corners going vetical
         if previous_segment.x == current_segment.x:
+            # snake moving left
             if next_segment.x > current_segment.x:
-                if next_segment.y > current_segment.y:
-                    return self.body_bottomright # 
+                if previous_segment.y < current_segment.y:
+                    return self.body_topright  # left -> up
                 else:
-                    return self.body_topright # left -> up
+                    return self.body_bottomright # left -> down
+            # snake moving right
             else:
-                if next_segment.y > current_segment.y:
-                    return self.body_bottomleft # 
+                if previous_segment.y < current_segment.y:
+                    return self.body_topleft # right -> up
                 else:
-                    return self.body_topleft # right -> up              
-
-        # case of corners going horizontal
-        else:
-            # body going right
+                    return self.body_bottomleft  # right -> down
+        elif previous_segment.y == current_segment.y:
+            # snake moving up
             if next_segment.y > current_segment.y:
                 if previous_segment.x < current_segment.x:
-                    return self.body_bottomleft # up -> left
+                    return self.body_bottomleft  # up to left
                 else:
-                    return self.body_bottomright # up -> right
-            # body going left
+                    return self.body_bottomright  # up to right
+            # snake moving down
             else:
                 if previous_segment.x < current_segment.x:
-                    return self.body_topleft # down -> left
+                    return self.body_topleft  # down to left
                 else:
-                    return self.body_topright # down -> right
-
+                    return self.body_topright # down to right
 
 
     def gameOverText(self):
