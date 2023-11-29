@@ -52,6 +52,11 @@ class SnakeMain:
         self.head_down = pygame.image.load('assets/head_down.png').convert_alpha()
         self.head_left = pygame.image.load('assets/head_left.png').convert_alpha()
         self.head_right = pygame.image.load('assets/head_right.png').convert_alpha()
+        
+        self.head_up = pygame.transform.scale(self.head_up, (20,20))
+        self.head_down = pygame.transform.scale(self.head_down, (20,20))
+        self.head_left = pygame.transform.scale(self.head_left, (20,20))
+        self.head_right = pygame.transform.scale(self.head_right, (20,20))
 
         # snake body
         self.body_horizontal = pygame.image.load('assets/body_horizontal.png').convert_alpha()
@@ -61,11 +66,23 @@ class SnakeMain:
         self.body_topleft = pygame.image.load('assets/body_topleft.png').convert_alpha()
         self.body_topright = pygame.image.load('assets/body_topright.png').convert_alpha()
 
+        self.body_horizontal = pygame.transform.scale(self.body_horizontal, (20,20))
+        self.body_vertical = pygame.transform.scale(self.body_vertical, (20,20))
+        self.body_bottomleft = pygame.transform.scale(self.body_bottomleft, (20,20))
+        self.body_bottomright = pygame.transform.scale(self.body_bottomright, (20,20))
+        self.body_topleft = pygame.transform.scale(self.body_topleft, (20,20))
+        self.body_topright = pygame.transform.scale(self.body_topright, (20,20))
+
         # snake tail
         self.tail_up = pygame.image.load('assets/tail_up.png').convert_alpha()
         self.tail_down  = pygame.image.load('assets/tail_down.png').convert_alpha()
         self.tail_left = pygame.image.load('assets/tail_left.png').convert_alpha()
         self.tail_right = pygame.image.load('assets/tail_right.png').convert_alpha()
+
+        self.tail_up = pygame.transform.scale(self.tail_up, (20,20))
+        self.tail_down = pygame.transform.scale(self.tail_down, (20,20))
+        self.tail_left = pygame.transform.scale(self.tail_left, (20,20))
+        self.tail_right = pygame.transform.scale(self.tail_right, (20,20))
 
         # -----------------------
 
@@ -162,7 +179,7 @@ class SnakeMain:
         # draw background
         self.display.fill(BG)
 
-        # load snake images
+        # draw snake
         for index, point in enumerate(self.snake):
             segment_rect = pygame.Rect(point.x, point.y, SIZE, SIZE)
             
@@ -192,6 +209,81 @@ class SnakeMain:
         text = font.render("Score: " + str(self.score), True, WHITE)
         self.display.blit(text, [0,0])
         pygame.display.flip() # updates the screen user sees
+    
+    def getHead(self):
+        if self.direction == Direction.UP:
+            return self.head_up
+        elif self.direction == Direction.DOWN:
+            return self.head_down
+        elif self.direction == Direction.LEFT:
+            return self.head_left
+        elif self.direction == Direction.RIGHT:
+            return self.head_right
+
+    def getTail(self, index):
+        tail_segment = self.snake[-1]
+        last_body_segment = self.snake[-2]
+
+        if tail_segment.x == last_body_segment.x:
+            # if snake going up
+            if tail_segment.y > last_body_segment.y:
+                return self.tail_down
+            # if snake going down
+            else:
+                return self.tail_up
+        else:
+            # snake going left
+            if tail_segment.x < last_body_segment.x:
+                return self.tail_left
+            # snake going right
+            else:
+                return self.tail_right
+
+    def getBody(self, index):
+        current_segment = self.snake[index]
+        previous_segment = self.snake[index - 1]
+        next_segment = self.snake[index + 1]
+
+        # body is horizontal
+        if current_segment.y == previous_segment.y == next_segment.y:
+            return self.body_horizontal
+
+        # body is vertical
+        if current_segment.x == previous_segment.x == next_segment.x:
+            return self.body_vertical
+        
+        # handle body corners
+        # case of corners going vetical
+        if previous_segment.x == current_segment.x:
+            # body going down
+            if next_segment.x > current_segment.x:
+                if next_segment.y > current_segment.y:
+                    return self.body_bottomright # curve right
+                else:
+                    return self.body_bottomleft # curve left
+            # body going up
+            else:
+                if next_segment.y > current_segment.y:
+                    return self.body_topright # curve right
+                else:
+                    return self.body_topleft # curve left                
+
+        # case of corners going horizontal
+        else:
+            # body going right
+            if next_segment.x > current_segment.x:
+                if next_segment.y > current_segment.y:
+                    return self.body_bottomright # curve down
+                else:
+                    return self.body_topright # curve up
+            # body going left
+            else:
+                if next_segment.y > current_segment.y:
+                    return self.body_bottomleft # curve down
+                else:
+                    return self.body_topleft # curve up
+
+
 
     def gameOverText(self):
         endText = font.render("Game Over! Your final score is: " + str(self.score), True, WHITE)
