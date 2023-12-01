@@ -7,7 +7,7 @@ To run this game, you need Python and Pygame installed on your machine.
 
 1. **Clone the Repository**
     ```
-    git clone [the repository url here]
+    git clone https://github.com/thormander/AI-Snake.git
     ```
 2. **Install Pygame**
     ```
