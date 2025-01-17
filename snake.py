@@ -265,7 +265,7 @@ class SnakeMain:
 
         # Check for collisions
         if self.collision():
-            reward = -50  # Big penalty for hitting the border or itself
+            reward = -50  # Big penalty for hitting itself
             return True, self.score
 
         # Update Q-values
