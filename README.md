@@ -1,4 +1,7 @@
 # AI-Snake
+
+![snakegame_ai](https://github.com/user-attachments/assets/9ae197bc-cc74-4c3c-92ca-e27a204c797d)
+
 ## Introduction
 This repository contains a Python-based Snake game using the Pygame library. The game features a classic snake game with a simple AI integration using Q-learning for automation.
 
