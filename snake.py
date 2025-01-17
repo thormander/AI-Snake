@@ -11,7 +11,7 @@ pygame.init() # initilize modules
 
 # CONSTANTS
 SIZE = 20
-SPEED = 50
+SPEED = 200
 
 # COLOR CONSTANTS
 BLACK = (0,0,0)
@@ -247,7 +247,7 @@ class SnakeMain:
         # Base rewards
         reward = 0  # Default reward
         if self.head == self.food:
-            reward = 10  # Reward for eating food
+            reward += 25 # Reward for eating food
             self.score += 1
             self.generateFood()
         else:
@@ -255,9 +255,9 @@ class SnakeMain:
 
             # Moving closer to food
             if dist_after < dist_before:
-                reward = 2  # Reward for approaching food
+                reward += 2  # Reward for approaching food
             else:
-                reward = -1  # Penalty for moving away from food
+                reward -= 1  # Penalty for moving away from food
 
         # Add penalties for border proximity
         if self.head.x < SIZE or self.head.x >= self.w - SIZE or self.head.y < SIZE or self.head.y >= self.h - SIZE:
@@ -265,7 +265,7 @@ class SnakeMain:
 
         # Check for collisions
         if self.collision():
-            reward = -10  # Big penalty for hitting the border or itself
+            reward = -50  # Big penalty for hitting the border or itself
             return True, self.score
 
         # Update Q-values
