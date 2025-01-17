@@ -1,6 +1,6 @@
 # AI-Snake
 ## Introduction
-This repository contains a Python-based Snake game using the Pygame library. The game features a classic snake game with plans to integrate AI for automation.
+This repository contains a Python-based Snake game using the Pygame library. The game features a classic snake game with a simple AI integration using Q-learning for automation.
 
 ## Installation
 To run this game, you need Python and Pygame installed on your machine.
@@ -15,14 +15,10 @@ To run this game, you need Python and Pygame installed on your machine.
     ```
 
 ## Usage
--- EXE SOON TO BE ADDED --
 1. Through the command line (make sure to cd to directory installed in):
    ```
    python snake.py
    ```
 
-## Controls:
-Control the snake using the arrow keys.
-
-## Upcoming Features
-- **AI Snake**: Currently implementing an AI algorithm that will allow the snake to play the game autonomously as a seperate feature.
+## AI controlled
+- Uses Q-learning to provide a simple reward system to control the snake to move toward the food
